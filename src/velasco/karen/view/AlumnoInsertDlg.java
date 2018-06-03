@@ -32,6 +32,13 @@ public class AlumnoInsertDlg extends JDialog{
     private CarrerasCombo comboCarreras;
     private AlumnoInsertListener listener;
     
+    private JPanel pnlId;
+    private JPanel pnlNombre;
+    private JPanel pnlApellido1;
+    private JPanel pnlApellido2;
+    private JPanel pnlCarrera;
+    private JPanel pnlBotones;
+    
     public AlumnoInsertDlg(JFrame parent){
         super(parent, "Agregar estudiante", true);
         super.setSize(600,400);
@@ -63,11 +70,11 @@ public class AlumnoInsertDlg extends JDialog{
         txtApellido2.setPreferredSize(new Dimension(80,30));
 
         
-        JPanel pnlId = new JPanel();
-        JPanel pnlNombre = new JPanel();
-        JPanel pnlApellido1 = new JPanel();
-        JPanel pnlApellido2 = new JPanel();
-        JPanel pnlCarrera = new JPanel();//numero
+        pnlId = new JPanel();
+        pnlNombre = new JPanel();
+        pnlApellido1 = new JPanel();
+        pnlApellido2 = new JPanel();
+        pnlCarrera = new JPanel();//numero
         
         pnlId.setLayout(new FlowLayout());
         pnlNombre.setLayout(new FlowLayout());
@@ -86,7 +93,7 @@ public class AlumnoInsertDlg extends JDialog{
         
         pnlCalendario = new CalendarioPnl("Fecha de nacimiento");
         
-        JPanel pnlBotones = new JPanel();
+        pnlBotones = new JPanel();
         pnlBotones.setLayout(new FlowLayout());
         
         btnAceptar = new JButton("Aceptar");
@@ -94,12 +101,25 @@ public class AlumnoInsertDlg extends JDialog{
         btnAceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //listener.aceptarClickButton(edtTexto.getText());
-                System.out.println("Dentro del dialog: "+pnlCalendario.getStringDate());
-            	listener.onBtnClick();
-                
-                AlumnoInsertDlg.this.setVisible(false);
-                
+            	System.out.println("1. Dentro del Dlg");
+            	String id = AlumnoInsertDlg.this.getTxtId().getText();
+            	String nombre = AlumnoInsertDlg.this.getTxtNombre().getText();
+            	String apellido1 = AlumnoInsertDlg.this.getTxtApellido1().getText();
+            	String apellido2 = AlumnoInsertDlg.this.getTxtApellido2().getText();
+            	String fecha = AlumnoInsertDlg.this.getPnlCalendario().getStringDate();
+            	Integer carrera = AlumnoInsertDlg.this.getComboCarreras().getSelectedIndex();
+            	
+            	System.out.println("Dentro del dlg "+ id);
+            	System.out.println("Dentro del dlg "+ nombre);
+            	System.out.println("Dentro del dlg "+ apellido1);
+            	System.out.println("Dentro del dlg "+apellido2);
+            	System.out.println("Dentro del dlg "+fecha);
+            	System.out.println("Dentro del dlg "+carrera);
+            	
+            	listener.onBtnClick(id, nombre, apellido1, apellido2, fecha, carrera);
+            	
+            	AlumnoInsertDlg.this.reset();
+            	AlumnoInsertDlg.this.setVisible(false);
             }
         });
         
@@ -137,102 +157,48 @@ public class AlumnoInsertDlg extends JDialog{
     }
 
     public void setListener(AlumnoInsertListener listener){
+    	System.out.println("Set listener");
         this.listener = listener;
     }
 
-    public JButton getBtnAceptar() {
-        return btnAceptar;
-    }
+    
+    public JTextField getTxtId() {
+		return txtId;
+	}
 
-    public void setBtnAceptar(JButton btnAceptar) {
-        this.btnAceptar = btnAceptar;
-    }
 
-    public JButton getBtnCancelar() {
-        return btnCancelar;
-    }
+	public JTextField getTxtNombre() {
+		return txtNombre;
+	}
 
-    public void setBtnCancelar(JButton btnCancelar) {
-        this.btnCancelar = btnCancelar;
-    }
 
-    public JLabel getNoControl() {
-        return lblId;
-    }
+	public JTextField getTxtApellido1() {
+		return txtApellido1;
+	}
 
-    public void setNoControl(JLabel noControl) {
-        this.lblId = noControl;
-    }
+	public JTextField getTxtApellido2() {
+		return txtApellido2;
+	}
 
-    public JLabel getNombre() {
-        return lblNombre;
-    }
+	public CalendarioPnl getPnlCalendario() {
+		return pnlCalendario;
+	}
 
-    public void setNombre(JLabel nombre) {
-        this.lblNombre = nombre;
-    }
-
-    public JLabel getPaterno() {
-        return lblApellido1;
-    }
-
-    public void setPaterno(JLabel paterno) {
-        this.lblApellido1 = paterno;
-    }
-
-    public JLabel getMaterno() {
-        return lblApellido2;
-    }
-
-    public void setMaterno(JLabel materno) {
-        this.lblApellido2 = materno;
-    }
-
-    public void setCarrera(JLabel carrera) {
-        this.lblCarrera = carrera;
-    }
-
-    public JTextField getNoControlInput() {
-        return txtId;
-    }
-
-    public void setNoControlInput(JTextField noControlInput) {
-        this.txtId = noControlInput;
-    }
-
-    public JTextField getNombreInput() {
-        return txtNombre;
-    }
-
-    public void setNombreInput(JTextField nombreInput) {
-        this.txtNombre = nombreInput;
-    }
-
-    public JTextField getPaternoInput() {
-        return txtApellido1;
-    }
-
-    public void setPaternoInput(JTextField paternoInput) {
-        this.txtApellido1 = paternoInput;
-    }
-
-    public JTextField getMaternoInput() {
-        return txtApellido2;
-    }
-
-    public void setMaternoInput(JTextField maternoInput) {
-        this.txtApellido2 = maternoInput;
-    }
-
-    public Integer getCarrera() {
-    	return comboCarreras.getSelectedIndex();
-    }
-    public void reset() {
+	
+	public void reset() {
     	this.txtId.setText("");
     	this.txtNombre.setText("");
     	this.txtApellido1.setText("");
     	this.txtApellido2.setText("");
     }
+
+	public CarrerasCombo getComboCarreras() {
+		return comboCarreras;
+	}
+
+	public void setComboCarreras(CarrerasCombo comboCarreras) {
+		this.comboCarreras = comboCarreras;
+	}
     
     /*public static void main(String[] args) {
         JFrame jframe = new JFrame();

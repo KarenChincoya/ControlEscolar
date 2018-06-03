@@ -28,6 +28,8 @@ FOREIGN KEY (carrera) REFERENCES carreras);
 ****************************************INSERTS 
 
 insert into carreras(id, descripcion) values
+(0,'Carreras');
+insert into carreras(id, descripcion) values
 (1,'Contaduría Pública y Finanzas');
 insert into carreras(id, descripcion) values
 (2,'Negocios Internacionales');
@@ -68,10 +70,8 @@ insert into carreras(id, descripcion) values
 insert into carreras(id, descripcion) values
 (20,'Ingeniería Ambiental');
 
+
 derivada de i = segunda derivada de Q respecto de t
-
-
-
 
 
 ALTER TABLE table_name
@@ -99,13 +99,19 @@ where id LIKE '%2%'
     
     
 insert into alumnos(id, nombre, apellido1, apellido2, carrera, fechanacimiento) values
-(1, 'Karen','Velasco','Chincoya',1,TO_DATE('1998-09-16', 'YYYY-MM-DD'));
+(1, 'Karen','Velasco','Chincoya',16,TO_DATE('1998-09-16', 'YYYY-MM-DD'));
 
 insert into alumnos(id, nombre, apellido1, apellido2, carrera, fechanacimiento) values
-(2, 'Ana','Santiago','Duran',1,TO_DATE('1998-5-6', 'YYYY-MM-DD'));
+(2, 'Ana','Santiago','Duran',5,TO_DATE('1998-5-6', 'YYYY-MM-DD'));
+
+insert into alumnos(id, nombre, apellido1, apellido2, carrera, fechanacimiento) values
+(3, 'Ricardo','Medina','Cisneros',4,TO_DATE('1998-5-6', 'YYYY-MM-DD'));
+
 
 
 Date date = new Date(1999,12,22);
 
-
+update alumnos 
+set nombre='Karen1'
+where id='1';
 

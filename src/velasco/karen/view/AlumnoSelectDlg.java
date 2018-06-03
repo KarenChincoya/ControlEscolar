@@ -49,21 +49,40 @@ public class AlumnoSelectDlg extends JDialog{
 	        lblIntrucciones = new JLabel("Puede buscar por id, nombre y/o apellido.");
 	        
 	        btn = new JButton("Buscar");
+//	        btn.setPreferredSize(new Dimension(50,15));
+	        
 	        btn.addActionListener(new ActionListener() {
-				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					listener.onBtnClick();
+					String buscar = AlumnoSelectDlg.this.getTxtBuscar().getText();
+					listener.onBtnClick(buscar);
+					AlumnoSelectDlg.this.reset();
+					AlumnoSelectDlg.this.setVisible(false);
 				}
 			});
 	        
 	        super.add(pnlBuscar);
+	        super.add(btn);
 	        super.add(lblIntrucciones);
 	 }
 	
 	public void setListener(AlumnoSelectListener listener) {
 		this.listener = listener;
 	}
+
+	public JTextField getTxtBuscar() {
+		return txtBuscar;
+	}
+
+	public void setTxtBuscar(JTextField txtBuscar) {
+		this.txtBuscar = txtBuscar;
+	}
+	
+	public void reset() {
+		this.getTxtBuscar().setText("");
+	}
+	
+	
 	/*public static void main(String[] args) {
 		JFrame frame = new JFrame("Tabla");
 		frame.setLayout(new BorderLayout());

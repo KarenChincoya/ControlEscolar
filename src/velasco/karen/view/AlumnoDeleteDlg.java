@@ -23,10 +23,10 @@ public class AlumnoDeleteDlg extends JDialog{
 	
 	public AlumnoDeleteDlg(JFrame parent){
 	        super(parent, "Eliminar estudiante", true);
-	        super.setSize(350,150);
+	        super.setSize(400,150);
 	        super.setLocationRelativeTo(null);
 	        super.setLayout(new GridLayout(3, 1));
-	        Font fuente = new Font("Dialog", Font.BOLD, 18);
+	        Font fuente = new Font("Dialog", Font.BOLD, 14);
 	        
 	        JPanel pnlBuscar = new JPanel();
 	        pnlBuscar.setLayout(new FlowLayout());
@@ -43,14 +43,16 @@ public class AlumnoDeleteDlg extends JDialog{
 	        lblIntrucciones = new JLabel("Ingrese el numero de control del estudiante.");
 	        lblIntrucciones.setFont(fuente);
 	        
-	        btn = new JButton("Buscar");
+	        btn = new JButton("Eliminar");
 	        btn.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					//castear el numero
 					try {
 						Integer num = Integer.valueOf(txtBuscar.getText());
-						listener.onBtnClick(num);						
+						listener.onBtnClick(num);
+						AlumnoDeleteDlg.this.reset();
+						AlumnoDeleteDlg.this.setVisible(false);
 					} catch (Exception e2) {
 						// TODO: handle exception
 						System.out.println("Debe ingresar un numero");
@@ -60,9 +62,13 @@ public class AlumnoDeleteDlg extends JDialog{
 	        
 	        super.add(lblIntrucciones);
 	        super.add(pnlBuscar);
+	        super.add(btn);
 	 }
 	
 	public void setListener(AlumnoDeleteListener listener) {
 		this.listener = listener;
+	}
+	public void reset() {
+		this.txtBuscar.setText("");
 	}
 }

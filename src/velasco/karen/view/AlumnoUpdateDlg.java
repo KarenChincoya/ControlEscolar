@@ -19,15 +19,13 @@ public class AlumnoUpdateDlg extends JDialog{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	
 	private JLabel lblId;
 	private JTextField txtId;
 	private JButton btnId;
 	private AlumnoUpdateListener listener;
 	
 	public AlumnoUpdateDlg(JFrame parent){
-        super(parent, "Actualizar datos de estudiante", true);
+		super(parent, "Actualizar datos de estudiante", true);
         super.setSize(350,150);
         super.setLocationRelativeTo(null);
         super.setLayout(new FlowLayout());
@@ -56,7 +54,11 @@ public class AlumnoUpdateDlg extends JDialog{
 				// TODO Auto-generated method stub
 				try {
 					Integer num = Integer.valueOf(txtId.getText());
+					System.out.println("El numero es: "+num);
 					listener.onBtnClick(num);
+					
+					AlumnoUpdateDlg.this.reset();
+					AlumnoUpdateDlg.this.setVisible(false);
 				} catch (Exception e2) {
 					// TODO: handle exception
 					System.out.println("El dato debe ser un numero entero");
@@ -67,12 +69,24 @@ public class AlumnoUpdateDlg extends JDialog{
         
         super.add(pnlId);
         super.add(btnId);
-        super.setVisible(true);
 	}
 	
 	public void setListener(AlumnoUpdateListener listener) {
 		this.listener = listener;
 	}
+
+	public JTextField getTxtId() {
+		return txtId;
+	}
+
+	public void setTxtId(JTextField txtId) {
+		this.txtId = txtId;
+	}
+	
+	public void reset() {
+		this.txtId.setText("");
+	}
+	
 	
 	/*public static void main(String[] args) {
         JFrame jframe = new JFrame();

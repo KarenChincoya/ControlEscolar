@@ -103,7 +103,15 @@ public class AlumnoUpdateDlg2 extends JDialog{
             public void actionPerformed(ActionEvent e) {
                 //listener.aceptarClickButton(edtTexto.getText());
                 System.out.println("Dentro del dialog: "+pnlCalendario.getStringDate());
-            	listener.onBtnClick();
+                
+                String id = AlumnoUpdateDlg2.this.getTxtId().getText();
+            	String nombre = AlumnoUpdateDlg2.this.getTxtNombre().getText();
+            	String apellido1 = AlumnoUpdateDlg2.this.getTxtApellido1().getText();
+            	String apellido2 = AlumnoUpdateDlg2.this.getTxtApellido2().getText();
+            	String fecha = AlumnoUpdateDlg2.this.getPnlCalendario().getStringDate();
+            	Integer carrera = AlumnoUpdateDlg2.this.getComboCarreras().getSelectedIndex();
+                
+                listener.onBtnClick(id, nombre, apellido1, apellido2, fecha, carrera);
                 
                 AlumnoUpdateDlg2.this.setVisible(false);
                 
@@ -147,94 +155,56 @@ public class AlumnoUpdateDlg2 extends JDialog{
         this.listener = listener;
     }
 
-    public JButton getBtnAceptar() {
-        return btnAceptar;
-    }
+    
+    public JTextField getTxtId() {
+		return txtId;
+	}
 
-    public void setBtnAceptar(JButton btnAceptar) {
-        this.btnAceptar = btnAceptar;
-    }
+	public void setTxtId(JTextField txtId) {
+		this.txtId = txtId;
+	}
 
-    public JButton getBtnCancelar() {
-        return btnCancelar;
-    }
+	public JTextField getTxtNombre() {
+		return txtNombre;
+	}
 
-    public void setBtnCancelar(JButton btnCancelar) {
-        this.btnCancelar = btnCancelar;
-    }
+	public void setTxtNombre(JTextField txtNombre) {
+		this.txtNombre = txtNombre;
+	}
 
-    public JLabel getNoControl() {
-        return lblId;
-    }
+	public JTextField getTxtApellido1() {
+		return txtApellido1;
+	}
 
-    public void setNoControl(JLabel noControl) {
-        this.lblId = noControl;
-    }
+	public void setTxtApellido1(JTextField txtApellido1) {
+		this.txtApellido1 = txtApellido1;
+	}
 
-    public JLabel getNombre() {
-        return lblNombre;
-    }
+	public JTextField getTxtApellido2() {
+		return txtApellido2;
+	}
 
-    public void setNombre(JLabel nombre) {
-        this.lblNombre = nombre;
-    }
+	public void setTxtApellido2(JTextField txtApellido2) {
+		this.txtApellido2 = txtApellido2;
+	}
 
-    public JLabel getPaterno() {
-        return lblApellido1;
-    }
+	public CalendarioPnl getPnlCalendario() {
+		return pnlCalendario;
+	}
 
-    public void setPaterno(JLabel paterno) {
-        this.lblApellido1 = paterno;
-    }
+	public void setPnlCalendario(CalendarioPnl pnlCalendario) {
+		this.pnlCalendario = pnlCalendario;
+	}
 
-    public JLabel getMaterno() {
-        return lblApellido2;
-    }
+	public CarrerasCombo getComboCarreras() {
+		return comboCarreras;
+	}
 
-    public void setMaterno(JLabel materno) {
-        this.lblApellido2 = materno;
-    }
+	public void setComboCarreras(CarrerasCombo comboCarreras) {
+		this.comboCarreras = comboCarreras;
+	}
 
-    public void setCarrera(JLabel carrera) {
-        this.lblCarrera = carrera;
-    }
-
-    public JTextField getNoControlInput() {
-        return txtId;
-    }
-
-    public void setNoControlInput(JTextField noControlInput) {
-        this.txtId = noControlInput;
-    }
-
-    public JTextField getNombreInput() {
-        return txtNombre;
-    }
-
-    public void setNombreInput(JTextField nombreInput) {
-        this.txtNombre = nombreInput;
-    }
-
-    public JTextField getPaternoInput() {
-        return txtApellido1;
-    }
-
-    public void setPaternoInput(JTextField paternoInput) {
-        this.txtApellido1 = paternoInput;
-    }
-
-    public JTextField getMaternoInput() {
-        return txtApellido2;
-    }
-
-    public void setMaternoInput(JTextField maternoInput) {
-        this.txtApellido2 = maternoInput;
-    }
-
-    public Integer getCarrera() {
-    	return comboCarreras.getSelectedIndex();
-    }
-    public void reset() {
+	public void reset() {
     	this.txtId.setText("");
     	this.txtNombre.setText("");
     	this.txtApellido1.setText("");

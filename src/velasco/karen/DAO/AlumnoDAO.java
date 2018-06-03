@@ -78,19 +78,17 @@ public class AlumnoDAO {
 
 		ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
 		String query = "select * from alumnos where ";
-
-		if (cadena == "") {
-			System.out.println("TODOS");
-			query = "select * from alumnos";
-		}
-
+		
 		try {
 			num = Integer.valueOf(cadena.trim());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-
-		if (num != 0) {// buscar por id
+		
+		if (cadena == "") {
+			System.out.println("TODOS");
+			query = "select * from alumnos";
+		}else if (num != 0) {// buscar por id
 			query = query.concat("id ='" + num + "'");
 		} else {
 			String[] tokens = cadena.split(" ");
@@ -111,6 +109,7 @@ public class AlumnoDAO {
 			}
 
 		}
+
 		query = query.concat(" order by 1");
 		System.out.println("Consulta = " + query);
 		try {
@@ -125,7 +124,7 @@ public class AlumnoDAO {
 						carrera);
 
 				alumnos.add(alumno);
-				System.out.println(rs.getString(1));
+				// System.out.println(rs.getString(1));
 			}
 
 		} catch (Exception e) {
@@ -136,7 +135,7 @@ public class AlumnoDAO {
 		return alumnos;
 	}
 
-	public void insertData(Integer id, String nombre, String apellido1, String apellido2, Integer carrera,
+	public void insertStudent(Integer id, String nombre, String apellido1, String apellido2, Integer carrera,
 			Date fechanacimiento) {
 		try {
 			PreparedStatement ins = conexion.prepareStatement("insert into alumnos(id, nombre, apellido1, "
@@ -156,23 +155,30 @@ public class AlumnoDAO {
 		}
 	}
 
-	
+	public void insertStudent(Alumno alumno) {
+		Integer id = alumno.getId();
+		String nombre = alumno.getNombre();
+		String apellido1 = alumno.getApellido1();
+		String apellido2 = alumno.getApellido2();
+		Integer carrera = alumno.getCarrera().getId();
+		Date fechanacimiento = alumno.getFechaNacimiento();
+		this.insertStudent(id, nombre, apellido1, apellido2, carrera, fechanacimiento);
+	}
+
 	public void updateStudent(Integer id, String nombre, String apellido1, String apellido2, Integer carrera,
 			Date fechanacimiento) {
-		
+
 		try {
-			PreparedStatement ins = conexion.prepareStatement("update alumnos "
-					+ "set nombre=?, apellido1=?, "
-					+ "apellido2=?, carrera=?, fechanacimiento=? "
-					+ "where id=?");
-//			ins.setInt(1, id);
+			PreparedStatement ins = conexion.prepareStatement("update alumnos " + "set nombre=?, apellido1=?, "
+					+ "apellido2=?, carrera=?, fechanacimiento=? " + "where id=?");
+			// ins.setInt(1, id);
 			ins.setString(1, nombre);
 			ins.setString(2, apellido1);
 			ins.setString(3, apellido2);
 			ins.setInt(4, carrera);
 			ins.setDate(5, fechanacimiento);
 			ins.setInt(6, id);
-			
+
 			int rowcount = ins.executeUpdate();
 			System.out.println("cantidad de registros afectados: " + rowcount);
 
@@ -180,7 +186,7 @@ public class AlumnoDAO {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	public void deleteStudent(Integer id) {
 		try {
 			PreparedStatement ins = conexion.prepareStatement("delete from alumnos where id=?");
@@ -204,17 +210,18 @@ public class AlumnoDAO {
 		}
 	}
 
-	public static void main(String[] args) {
-		AlumnoDAO daoAlumno = new AlumnoDAO();
-		String str="1997-06-26";
-		Date date = Date.valueOf(str);
-		daoAlumno.updateStudent(7, "Metzli", "Torres", "Amaya", 14, date);
-		
-		if(daoAlumno.getAlumnos("Torres")!=null) {
-			System.out.println(daoAlumno.getAlumnos("Torres").get(0).getFechaNacimiento().toString());
-		}
-	}	
 	
+	/* public static void main(String[] args) { AlumnoDAO daoAlumno = new
+	  AlumnoDAO(); String str="1997-06-26"; Date date = Date.valueOf(str);
+	 //daoAlumno.updateStudent(7, "Metzli", "Torres", "Amaya", 14, date);
+	 
+	  if(daoAlumno.getAlumnos("Medina")!=null) {
+	  System.out.println(daoAlumno.getAlumnos("Medina").get(0).getFechaNacimiento().toString()); 
+	  } 
+	  
+	 }*/
+	 
+
 	/*
 	 * AlumnoDAO daoAlumno = new AlumnoDAO(); Date date = new Date(1996,6,3);
 	 * daoAlumno.insertData(4, "Lorena", "Valencia", "Chavez", 4, date); }

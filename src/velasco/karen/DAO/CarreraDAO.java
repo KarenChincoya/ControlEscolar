@@ -86,8 +86,8 @@ private Connection conexion;
 	        
 	        while (rs.next()) {//por columna 
 	        	carrera = new Carrera(rs.getInt(1), rs.getString(2));
-	            System.out.println(rs.getInt(1));
-	            System.out.println(rs.getString(2));
+	            //System.out.println(rs.getInt(1));
+	            //System.out.println(rs.getString(2));
 	        }
 	        
 		} catch (Exception e) {
@@ -95,7 +95,7 @@ private Connection conexion;
 			System.out.println("ERROR BASE DE DATOS");
 		}
         
-        System.out.println("Consulta = "+query);
+        //System.out.println("Consulta = "+query);
 		
 		return carrera;
 
