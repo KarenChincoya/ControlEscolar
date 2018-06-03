@@ -1,0 +1,111 @@
+sudo -u postgres psql postgres;
+
+create user adminescolar;
+
+create database escueladb;
+
+ALTER USER adminescolar WITH PASSWORD 'control';
+
+grant all privileges on database escueladb to adminescolar;
+
+create table carreras(
+id Integer UNIQUE NOT NULL,
+descripcion varchar(128),
+PRIMARY KEY (id)
+);
+
+
+create table alumnos(
+id Integer UNIQUE NOT NULL,
+nombre varchar(45),
+apellido1 varchar(45),
+apellido2 varchar(45),
+carrera Integer,
+fechaNacimiento Date,
+PRIMARY KEY (id),
+FOREIGN KEY (carrera) REFERENCES carreras);
+
+****************************************INSERTS 
+
+insert into carreras(id, descripcion) values
+(1,'Contaduría Pública y Finanzas');
+insert into carreras(id, descripcion) values
+(2,'Negocios Internacionales');
+insert into carreras(id, descripcion) values
+(3,'Arquitectura');
+insert into carreras(id, descripcion) values
+(4,'Enfermería');
+insert into carreras(id, descripcion) values
+(5,'Fisioterapia');
+insert into carreras(id, descripcion) values
+(6,'Psicología');
+insert into carreras(id, descripcion) values
+(7,'Nutrición');
+insert into carreras(id, descripcion) values
+(8,'Ciencias en el Deporte');
+insert into carreras(id, descripcion) values
+(9,'Gestión y Desarrollo de las Artes');
+insert into carreras(id, descripcion) values
+(10,'Comunicación y Medios Digitales');
+insert into carreras(id, descripcion) values
+(11,'Derecho');
+insert into carreras(id, descripcion) values
+(12,'Educación');
+insert into carreras(id, descripcion) values
+(13,'Gastronomía');
+insert into carreras(id, descripcion) values
+(14,'Administración Turística');
+insert into carreras(id, descripcion) values
+(15,'Lenguas Modernas e Interculturalidad');
+insert into carreras(id, descripcion) values
+(16,'Ingenieria en Software y Sistemas Computacionales');
+insert into carreras(id, descripcion) values
+(17,'Ingeniería en Electrónica y Telecomunicaciones');
+insert into carreras(id, descripcion) values
+(18,'Ingeniería Industrial');
+insert into carreras(id, descripcion) values
+(19,'Ingeniería Civil');
+insert into carreras(id, descripcion) values
+(20,'Ingeniería Ambiental');
+
+derivada de i = segunda derivada de Q respecto de t
+
+
+
+
+
+ALTER TABLE table_name
+ADD COLUMN new_column_name_1 data_type constraint,
+
+
+select descripcion from carreras where id=(select carrera from alumnos where id='1');
+
+select * from alumnos where nombre LIKE '%Karen%' and apellido1 LIKE '%Velasco%';
+
+select * from alumnos
+where id LIKE '%2.ToString()%';
+
+select * from carreras 
+where id LIKE '%2.ToString()%';
+
+select * from carreras where id='2';
+
+
+select * from alumnos
+where id LIKE '%2%'
+    OR nombre LIKE '%Karen%';
+
+    
+    
+    
+insert into alumnos(id, nombre, apellido1, apellido2, carrera, fechanacimiento) values
+(1, 'Karen','Velasco','Chincoya',1,TO_DATE('1998-09-16', 'YYYY-MM-DD'));
+
+insert into alumnos(id, nombre, apellido1, apellido2, carrera, fechanacimiento) values
+(2, 'Ana','Santiago','Duran',1,TO_DATE('1998-5-6', 'YYYY-MM-DD'));
+
+
+Date date = new Date(1999,12,22);
+
+
+
