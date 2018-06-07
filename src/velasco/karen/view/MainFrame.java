@@ -3,11 +3,12 @@ package velasco.karen.view;
 import java.awt.BorderLayout;
 import java.sql.Date;
 import java.util.ArrayList;
+
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import sun.applet.Main;
 import velasco.karen.DAO.AlumnoDAO;
 import velasco.karen.objects.Alumno;
 
@@ -22,7 +23,8 @@ public class MainFrame extends JFrame {
 	private AlumnoDeleteDlg dlgDelete;
 	private OpcionesDlg dlgOpciones;
 	private AlumnoDeleteDlgV2 dlgDelete2;
-
+	private JLabel lblNoResults;
+	
 	private AlumnoDAO daoAlumno;
 	private ArrayList<Alumno> alumnos;
 	private Alumno alumno;
@@ -44,6 +46,7 @@ public class MainFrame extends JFrame {
 //		dlgDelete2 = new AlumnoDeleteDlgV2(this);
 		dlgOpciones = new OpcionesDlg(this);
 
+		lblNoResults = new JLabel("Ningún resultado coincide con la búsqueda.");
 		// Controlador
 		daoAlumno = new AlumnoDAO();
 		alumnos = daoAlumno.getAlumnos("");
@@ -79,6 +82,7 @@ public class MainFrame extends JFrame {
 			public void onBtnClick(Integer opcion) {
 				// TODO Auto-generated method stub
 				System.out.println("MainFrame ----> opcion = " + opcion);
+				MainFrame.this.quitarNoResultsLbl();
 				switch (opcion) {
 				case 1:// agregar
 					System.out.println("Eligio insertar un estudiante");
@@ -194,10 +198,17 @@ public class MainFrame extends JFrame {
 
 	public void revalidateTable(String buscar) {
 		alumnos = daoAlumno.getAlumnos(buscar);
-		this.tablaAlumnos.setoAlumnos(alumnos);
-		this.tablaAlumnos.revalidate();
-		this.tablaAlumnos.repaint();
-		System.out.println("Alumnos revalidados");
+		
+			this.tablaAlumnos.setoAlumnos(alumnos);
+			this.tablaAlumnos.revalidate();
+			this.tablaAlumnos.repaint();
+			System.out.println("Alumnos revalidados");
+		
+	}
+	public void quitarNoResultsLbl() {
+		this.lblNoResults.setVisible(false);
+		this.revalidate();
+		this.repaint();
 	}
 
 	public Integer getSelectedStudent() {

@@ -40,6 +40,7 @@ public class AlumnoInsertDlg extends JDialog{
     private JPanel pnlApellido2;
     private JPanel pnlCarrera;
     private JPanel pnlBotones;
+    private AlumnoDAO daoAlumno;
     
     private Integer newId;
     private ErrorDlg dlgError;
@@ -75,8 +76,9 @@ public class AlumnoInsertDlg extends JDialog{
         txtApellido1.setPreferredSize(new Dimension(80,30));
         txtApellido2.setPreferredSize(new Dimension(80,30));
 
-        AlumnoDAO daoAlumno = new AlumnoDAO();
+        daoAlumno = new AlumnoDAO();
         newId = daoAlumno.getMaxIndex()+1;
+        this.setNewId(newId);
         txtId.setText(String.valueOf(newId));
         txtId.setEditable(false);
         
@@ -137,8 +139,7 @@ public class AlumnoInsertDlg extends JDialog{
                 	System.out.println("Dentro del dlg "+apellido2);
                 	System.out.println("Dentro del dlg "+fecha);
                 	System.out.println("Dentro del dlg "+carrera);
-                	
-                	listener.onBtnClick(id, nombre, apellido1, apellido2, fecha, carrera);
+                	listener.onBtnClick(String.valueOf(newId), nombre, apellido1, apellido2, fecha, carrera);
                 	
                 	AlumnoInsertDlg.this.reset();
                 	AlumnoInsertDlg.this.setVisible(false);
@@ -209,10 +210,16 @@ public class AlumnoInsertDlg extends JDialog{
 
 	
 	public void reset() {
-    	this.txtId.setText("");
-    	this.txtNombre.setText("");
+//    	this.txtId.setText("");
+		daoAlumno = new AlumnoDAO();
+        newId = daoAlumno.getMaxIndex()+1;
+        this.setNewId(newId);
+        txtId.setText(String.valueOf(newId));
+        txtId.setEditable(false);
+		this.txtNombre.setText("");
     	this.txtApellido1.setText("");
     	this.txtApellido2.setText("");
+    	this.comboCarreras.setComboList0();
     }
 
 	public CarrerasCombo getComboCarreras() {
@@ -221,6 +228,14 @@ public class AlumnoInsertDlg extends JDialog{
 
 	public void setComboCarreras(CarrerasCombo comboCarreras) {
 		this.comboCarreras = comboCarreras;
+	}
+
+	public Integer getNewId() {
+		return newId;
+	}
+
+	public void setNewId(Integer newId) {
+		this.newId = newId;
 	}
     
 	

@@ -13,7 +13,7 @@ import velasco.karen.objects.Carrera;
 
 public class CarrerasCombo extends JPanel implements ActionListener{
 	private Integer selectedIndex;
-    
+    private JComboBox comboList;
     public CarrerasCombo() {
         super(new BorderLayout());
  
@@ -27,14 +27,14 @@ public class CarrerasCombo extends JPanel implements ActionListener{
         }
         //Create the combo box, select the item at index 4.
         //Indices start at 0, so 4 specifies the pig.
-        JComboBox petList = new JComboBox(carrerStrings);
-        petList.setSelectedIndex(0);
-        petList.addActionListener(this);
+        comboList = new JComboBox(carrerStrings);
+        comboList.setSelectedIndex(0);
+        comboList.addActionListener(this);
  
-        Integer selectedIndex = petList.getSelectedIndex();
+        Integer selectedIndex = comboList.getSelectedIndex();
         System.out.println("Selected index: "+selectedIndex);
         
-        add(petList, BorderLayout.PAGE_START);
+        add(comboList, BorderLayout.PAGE_START);
 
     }
  
@@ -56,4 +56,17 @@ public class CarrerasCombo extends JPanel implements ActionListener{
         System.out.println("Dentro de set selected index: "+selectedIndex);
         this.selectedIndex = selectedIndex;
     }
+
+	public JComboBox getComboList() {
+		return comboList;
+	}
+	
+	public void setComboList0() {
+		this.comboList.setSelectedIndex(0);
+	}
+
+	public void setComboList(JComboBox comboList) {
+		this.comboList = comboList;
+	}
+    
 }

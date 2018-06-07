@@ -26,7 +26,7 @@ public class AlumnoDeleteDlg extends JDialog{
 	
 	public AlumnoDeleteDlg(JFrame parent){
 	        super(parent, "Eliminar estudiante", true);
-	        super.setSize(550,200);
+	        super.setSize(600,200);
 	        super.setLocationRelativeTo(null);
 	        super.setLayout(new FlowLayout());
 	        Font fuente = new Font("Dialog", Font.BOLD, 21);
