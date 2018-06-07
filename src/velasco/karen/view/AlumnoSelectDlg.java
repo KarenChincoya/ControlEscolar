@@ -29,9 +29,9 @@ public class AlumnoSelectDlg extends JDialog{
 	
 	public AlumnoSelectDlg(JFrame parent){
 	        super(parent, "Buscar estudiante", true);
-	        super.setSize(350,150);
+	        super.setSize(350,200);
 	        super.setLocationRelativeTo(null);
-	        super.setLayout(new GridLayout(3, 1));
+	        super.setLayout(new FlowLayout());
 	        Font fuente = new Font("Dialog", Font.BOLD, 18);
 	        
 	        JPanel pnlBuscar = new JPanel();
@@ -40,7 +40,7 @@ public class AlumnoSelectDlg extends JDialog{
 	        lblBuscar = new JLabel("Buscar: ");
 	        lblBuscar.setFont(fuente);
 	        txtBuscar = new JTextField();
-	        txtBuscar.setPreferredSize(new Dimension(120,40));
+	        txtBuscar.setPreferredSize(new Dimension(170,40));
 	        txtBuscar.setFont(fuente);
 	        
 	        pnlBuscar.add(lblBuscar);
@@ -49,7 +49,7 @@ public class AlumnoSelectDlg extends JDialog{
 	        lblIntrucciones = new JLabel("Puede buscar por id, nombre y/o apellido.");
 	        
 	        btn = new JButton("Buscar");
-//	        btn.setPreferredSize(new Dimension(50,15));
+	        btn.setPreferredSize(new Dimension(100,40));
 	        
 	        btn.addActionListener(new ActionListener() {
 				@Override
@@ -57,6 +57,7 @@ public class AlumnoSelectDlg extends JDialog{
 					String buscar = AlumnoSelectDlg.this.getTxtBuscar().getText();
 					listener.onBtnClick(buscar);
 					AlumnoSelectDlg.this.reset();
+					AlumnoSelectDlg.this.revalidate();
 					AlumnoSelectDlg.this.setVisible(false);
 				}
 			});
@@ -79,7 +80,7 @@ public class AlumnoSelectDlg extends JDialog{
 	}
 	
 	public void reset() {
-		this.getTxtBuscar().setText("");
+		this.txtBuscar.setText("");
 	}
 	
 	

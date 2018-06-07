@@ -18,15 +18,18 @@ public class AlumnoDeleteDlg extends JDialog{
 	private JLabel lblBuscar;
 	private JTextField txtBuscar;
 	private JLabel lblIntrucciones;
-	private JButton btn;
+	private JButton btnAceptar;
+	private JButton btnCancelar;
+	private JButton btnEliminar;
 	private AlumnoDeleteListener listener;
+	private JLabel lblConfirmacion;
 	
 	public AlumnoDeleteDlg(JFrame parent){
 	        super(parent, "Eliminar estudiante", true);
-	        super.setSize(400,150);
+	        super.setSize(550,200);
 	        super.setLocationRelativeTo(null);
-	        super.setLayout(new GridLayout(3, 1));
-	        Font fuente = new Font("Dialog", Font.BOLD, 14);
+	        super.setLayout(new FlowLayout());
+	        Font fuente = new Font("Dialog", Font.BOLD, 21);
 	        
 	        JPanel pnlBuscar = new JPanel();
 	        pnlBuscar.setLayout(new FlowLayout());
@@ -34,7 +37,7 @@ public class AlumnoDeleteDlg extends JDialog{
 	        lblBuscar = new JLabel("Eliminar: ");
 	        lblBuscar.setFont(fuente);
 	        txtBuscar = new JTextField();
-	        txtBuscar.setPreferredSize(new Dimension(120,40));
+	        txtBuscar.setPreferredSize(new Dimension(170,40));
 	        txtBuscar.setFont(fuente);
 	        
 	        pnlBuscar.add(lblBuscar);
@@ -43,26 +46,58 @@ public class AlumnoDeleteDlg extends JDialog{
 	        lblIntrucciones = new JLabel("Ingrese el numero de control del estudiante.");
 	        lblIntrucciones.setFont(fuente);
 	        
-	        btn = new JButton("Eliminar");
-	        btn.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					//castear el numero
-					try {
-						Integer num = Integer.valueOf(txtBuscar.getText());
-						listener.onBtnClick(num);
-						AlumnoDeleteDlg.this.reset();
-						AlumnoDeleteDlg.this.setVisible(false);
-					} catch (Exception e2) {
-						// TODO: handle exception
-						System.out.println("Debe ingresar un numero");
-					}
-				}
-			});
+	        btnAceptar = new JButton("Eliminar");
 	        
-	        super.add(lblIntrucciones);
-	        super.add(pnlBuscar);
-	        super.add(btn);
+	       // btnAceptar.addActionListener(new ActionListener() {
+			//	@Override
+			//	public void actionPerformed(ActionEvent e) {
+					lblConfirmacion = new JLabel("¿Está seguro que desea eliminar al estudiante?");
+					lblConfirmacion.setFont(fuente);
+					//castear el numero
+					btnEliminar = new JButton("Sí");
+					btnCancelar = new JButton("No");
+					
+					btnEliminar.setFont(fuente);
+					btnCancelar.setFont(fuente);
+					
+					btnEliminar.setPreferredSize(new Dimension(120,40));
+					btnCancelar.setPreferredSize(new Dimension(120,40));
+					
+					btnEliminar.addActionListener(new ActionListener() {
+						
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// TODO Auto-generated method stub
+							try {
+								listener.onBtnClick();
+								AlumnoDeleteDlg.this.setVisible(false);
+							} catch (Exception e2) {
+								// TODO: handle exception
+								System.out.println("Debe ingresar un numero");
+							}
+						}
+					});
+					
+					btnCancelar.addActionListener(new ActionListener() {
+						
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// TODO Auto-generated method stub
+							AlumnoDeleteDlg.this.setVisible(false);
+						}
+					});
+					super.add(lblConfirmacion);
+					super.add(btnEliminar);
+					super.add(btnCancelar);
+					
+					AlumnoDeleteDlg.this.revalidate();
+					AlumnoDeleteDlg.this.repaint();
+		//		}
+		//	});
+	        
+	     //   super.add(lblIntrucciones);
+	     //   super.add(pnlBuscar);
+	        
 	 }
 	
 	public void setListener(AlumnoDeleteListener listener) {

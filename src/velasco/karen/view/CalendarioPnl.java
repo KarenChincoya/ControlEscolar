@@ -45,10 +45,37 @@ public class CalendarioPnl extends JPanel{
     }
     
     
-    
-    public String getStringDate(){
+    public JDatePickerImpl getDatePicker() {
+		return datePicker;
+	}
+
+
+	public void setDatePicker(JDatePickerImpl datePicker) {
+		this.datePicker = datePicker;
+	}
+
+
+	public String getStringDate(){
         return dateLabelFormatter.getStringDate();
     }
+
+	public JDatePanelImpl getDatePanel() {
+		return datePanel;
+	}
+
+	public void setDatePanel(JDatePanelImpl datePanel) {
+		this.datePanel = datePanel;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+    
+    
     
     /*
     public void resetCalendar(){

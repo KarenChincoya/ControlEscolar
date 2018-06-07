@@ -134,6 +134,29 @@ public class AlumnoDAO {
 		}
 		return alumnos;
 	}
+	
+	public Integer getMaxIndex() {
+		Integer maxIndex = null;
+		
+		try {
+			String query = "select MAX(id) from alumnos";
+			
+			PreparedStatement stn = conexion.prepareStatement(query);
+			// stn.setInt(1, 2); //1 es el indice
+			ResultSet rs = stn.executeQuery();
+
+			while (rs.next()) {// por columna
+				maxIndex = rs.getInt(1);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("No leyeron nada");
+			e.printStackTrace();
+		}
+		
+		return maxIndex;
+	}
 
 	public void insertStudent(Integer id, String nombre, String apellido1, String apellido2, Integer carrera,
 			Date fechanacimiento) {

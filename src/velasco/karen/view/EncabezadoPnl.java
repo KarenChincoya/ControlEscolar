@@ -15,11 +15,12 @@ public class EncabezadoPnl extends JPanel{
 	private JLabel lblInstrucciones;
 	private LogoPnl pnlLogo;
 	private JLabel lblEstudiantes;
-	EncabezadoListener listener;
+	private EncabezadoListener listener;
 	private JButton btnAgregar;
 	private JButton btnActualizar;
 	private JButton btnBuscar;
 	private JButton btnEliminar ;
+	private JButton btnReset;
 	private JPanel pnl1;
 	private JPanel pnl2;
 	
@@ -45,11 +46,13 @@ public class EncabezadoPnl extends JPanel{
 		btnActualizar = new JButton("Actualizar");
 		btnBuscar = new JButton("Buscar");
 		btnEliminar = new JButton("Eliminar");
+		btnReset = new JButton("Reset");
 		
 		btnAgregar.setPreferredSize(new Dimension(120,40));
 		btnActualizar.setPreferredSize(new Dimension(120,40));
 		btnBuscar.setPreferredSize(new Dimension(120,40));
 		btnEliminar.setPreferredSize(new Dimension(120,40));
+		btnReset.setPreferredSize(new Dimension(120,40));
 		
 		btnAgregar.addActionListener(new ActionListener() {
 			
@@ -73,7 +76,7 @@ public class EncabezadoPnl extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				listener.onBtnClick(3);
+				listener.onBtnClick(4);
 			}
 		});
 		btnEliminar.addActionListener(new ActionListener() {
@@ -81,7 +84,16 @@ public class EncabezadoPnl extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				listener.onBtnClick(4);
+				listener.onBtnClick(3);
+			}
+		});
+		
+		btnReset.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				listener.onBtnClick(5);
 			}
 		});
 		
@@ -92,6 +104,7 @@ public class EncabezadoPnl extends JPanel{
 		pnl2.add(btnActualizar);
 		pnl2.add(btnBuscar);
 		pnl2.add(btnEliminar);
+		pnl2.add(btnReset);
 		
 		super.add(pnl1);
 		super.add(lblEstudiantes);

@@ -20,6 +20,7 @@ public class AlumnoUpdateDlg2 extends JDialog{
 	private JButton btnAceptar;
     private JButton btnCancelar;
 
+    private JLabel lblInstrucciones;
     private JLabel lblId;
     private JLabel lblNombre;
     private JLabel lblApellido1;
@@ -35,11 +36,13 @@ public class AlumnoUpdateDlg2 extends JDialog{
     private CarrerasCombo comboCarreras;
     private AlumnoUpdateListener2 listener;
     
+    private String fechaAnterior;
+    private Integer carreraAnterior;
+    
     public AlumnoUpdateDlg2(JFrame parent, Alumno alumno){
         super(parent, "Actualizar datos del estudiante "+alumno.getId(), true);
         super.setSize(600,400);
         super.setLocationRelativeTo(null);
-        
         super.setLayout(new FlowLayout());
         
         lblId = new JLabel("Id: ");
@@ -83,6 +86,7 @@ public class AlumnoUpdateDlg2 extends JDialog{
         pnlCarrera.setLayout(new FlowLayout());
         
         comboCarreras = new CarrerasCombo();
+        comboCarreras.setSelectedIndex(alumno.getCarrera().getId());
         
         pnlId.add(lblId); pnlId.add(txtId);
         pnlNombre.add(lblNombre); pnlNombre.add(txtNombre);
@@ -90,6 +94,10 @@ public class AlumnoUpdateDlg2 extends JDialog{
         pnlApellido2.add(lblApellido2); pnlApellido2.add(txtApellido2);
         pnlCarrera.add(lblCarrera);
         pnlCarrera.add(comboCarreras);
+        
+        this.carreraAnterior = alumno.getCarrera().getId();
+        this.fechaAnterior = alumno.getFechaNacimiento().toString();
+        System.out.println("Fecha anterior: "+this.fechaAnterior);
         
         pnlCalendario = new CalendarioPnl("Fecha de nacimiento");
         
@@ -108,10 +116,22 @@ public class AlumnoUpdateDlg2 extends JDialog{
             	String nombre = AlumnoUpdateDlg2.this.getTxtNombre().getText();
             	String apellido1 = AlumnoUpdateDlg2.this.getTxtApellido1().getText();
             	String apellido2 = AlumnoUpdateDlg2.this.getTxtApellido2().getText();
+            	
+            	String fechaEnviar = null;
             	String fecha = AlumnoUpdateDlg2.this.getPnlCalendario().getStringDate();
+            	if(fecha==null) {
+            		fechaEnviar = AlumnoUpdateDlg2.this.getFechaAnterior();
+            	}else {
+            		fechaEnviar = fecha;
+            	}
+            	
+            	Integer carreraEnviar = null;
             	Integer carrera = AlumnoUpdateDlg2.this.getComboCarreras().getSelectedIndex();
-                
-                listener.onBtnClick(id, nombre, apellido1, apellido2, fecha, carrera);
+            	if(carreraEnviar==null) {
+            		carreraEnviar = AlumnoUpdateDlg2.this.getCarreraAnterior();
+            	}
+            	
+                listener.onBtnClick(id, nombre, apellido1, apellido2, fechaEnviar, carreraEnviar);
                 
                 AlumnoUpdateDlg2.this.setVisible(false);
                 
@@ -210,6 +230,23 @@ public class AlumnoUpdateDlg2 extends JDialog{
     	this.txtApellido1.setText("");
     	this.txtApellido2.setText("");
     }
+
+	public String getFechaAnterior() {
+		return fechaAnterior;
+	}
+
+	public void setFechaAnterior(String fechaAnterior) {
+		this.fechaAnterior = fechaAnterior;
+	}
+
+	public Integer getCarreraAnterior() {
+		return carreraAnterior;
+	}
+
+	public void setCarreraAnterior(Integer carreraAnterior) {
+		this.carreraAnterior = carreraAnterior;
+	}
+	
     
     /*public static void main(String[] args) {
         JFrame jframe = new JFrame();

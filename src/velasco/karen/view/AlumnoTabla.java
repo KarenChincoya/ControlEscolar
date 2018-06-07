@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
@@ -23,6 +25,7 @@ public class AlumnoTabla extends JPanel implements TableModelListener{
 	private ArrayList<String> columnas;
 	private JTable table;
 	private AlumnoTableModel alumnoTableModel;
+	private Integer selectedStudent;
 	
 	public AlumnoTabla(ArrayList<Alumno> Alumnos){
         super();
@@ -33,6 +36,7 @@ public class AlumnoTabla extends JPanel implements TableModelListener{
         alumnoTableModel.fireTableDataChanged();
         
         table = new JTable(alumnoTableModel);
+        
         table.getModel().addTableModelListener(new TableModelListener() {
 			@Override
 			public void tableChanged(TableModelEvent e) {
@@ -42,6 +46,16 @@ public class AlumnoTabla extends JPanel implements TableModelListener{
 				table.repaint();
 			}
 		});
+        
+        /*table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println(arg0.getFirstIndex());
+				AlumnoTabla.this.setSelectedStudent(arg0.getFirstIndex());
+			}
+		});*/
         
         JScrollPane scrollPane = new JScrollPane(table);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 300));
@@ -74,6 +88,33 @@ public class AlumnoTabla extends JPanel implements TableModelListener{
 	public void setTable(JTable table) {
 		this.table = table;
 	}
+
+	public Integer getSelectedStudent() {
+		return selectedStudent;
+	}
+
+	public void setSelectedStudent(Integer selectedStudent) {
+		this.selectedStudent = selectedStudent;
+		System.out.println(selectedStudent);
+	}
+
+	public ArrayList<String> getColumnas() {
+		return columnas;
+	}
+
+	public void setColumnas(ArrayList<String> columnas) {
+		this.columnas = columnas;
+	}
+
+	public AlumnoTableModel getAlumnoTableModel() {
+		return alumnoTableModel;
+	}
+
+	public void setAlumnoTableModel(AlumnoTableModel alumnoTableModel) {
+		this.alumnoTableModel = alumnoTableModel;
+	}
+	
+	
 	/*public static void main(String[] args) {
 		AlumnoDAO daoAlumno = new AlumnoDAO();
 		ArrayList<Alumno> alumnos;

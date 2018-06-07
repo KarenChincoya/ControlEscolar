@@ -1,6 +1,5 @@
 package velasco.karen.view;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -10,8 +9,11 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import velasco.karen.DAO.AlumnoDAO;
 
 public class AlumnoInsertDlg extends JDialog{
 	private JButton btnAceptar;
@@ -39,13 +41,17 @@ public class AlumnoInsertDlg extends JDialog{
     private JPanel pnlCarrera;
     private JPanel pnlBotones;
     
+    private Integer newId;
+    private ErrorDlg dlgError;
+    
     public AlumnoInsertDlg(JFrame parent){
         super(parent, "Agregar estudiante", true);
         super.setSize(600,400);
 //        super.setResizable(false);
         super.setLocationRelativeTo(null);
-        
         super.setLayout(new FlowLayout());
+        
+        dlgError = new ErrorDlg(this);
         
         lblId = new JLabel("Id: ");
         lblNombre = new JLabel("Nombre: ");
@@ -69,6 +75,10 @@ public class AlumnoInsertDlg extends JDialog{
         txtApellido1.setPreferredSize(new Dimension(80,30));
         txtApellido2.setPreferredSize(new Dimension(80,30));
 
+        AlumnoDAO daoAlumno = new AlumnoDAO();
+        newId = daoAlumno.getMaxIndex()+1;
+        txtId.setText(String.valueOf(newId));
+        txtId.setEditable(false);
         
         pnlId = new JPanel();
         pnlNombre = new JPanel();
@@ -101,6 +111,7 @@ public class AlumnoInsertDlg extends JDialog{
         btnAceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	
             	System.out.println("1. Dentro del Dlg");
             	String id = AlumnoInsertDlg.this.getTxtId().getText();
             	String nombre = AlumnoInsertDlg.this.getTxtNombre().getText();
@@ -109,17 +120,29 @@ public class AlumnoInsertDlg extends JDialog{
             	String fecha = AlumnoInsertDlg.this.getPnlCalendario().getStringDate();
             	Integer carrera = AlumnoInsertDlg.this.getComboCarreras().getSelectedIndex();
             	
-            	System.out.println("Dentro del dlg "+ id);
-            	System.out.println("Dentro del dlg "+ nombre);
-            	System.out.println("Dentro del dlg "+ apellido1);
-            	System.out.println("Dentro del dlg "+apellido2);
-            	System.out.println("Dentro del dlg "+fecha);
-            	System.out.println("Dentro del dlg "+carrera);
-            	
-            	listener.onBtnClick(id, nombre, apellido1, apellido2, fecha, carrera);
-            	
-            	AlumnoInsertDlg.this.reset();
-            	AlumnoInsertDlg.this.setVisible(false);
+            	if(nombre==null) {
+            		dlgError.setVisible(true);
+            	}else if(apellido1==null) {
+            		dlgError.setVisible(true);
+            	}else if(apellido2==null) {
+            		dlgError.setVisible(true);
+            	}else if(fecha==null) {
+            		dlgError.setVisible(true);
+            	}else if(carrera==null || carrera==0) {
+            		dlgError.setVisible(true);
+            	}else {
+            		System.out.println("Dentro del dlg "+ id);
+                	System.out.println("Dentro del dlg "+ nombre);
+                	System.out.println("Dentro del dlg "+ apellido1);
+                	System.out.println("Dentro del dlg "+apellido2);
+                	System.out.println("Dentro del dlg "+fecha);
+                	System.out.println("Dentro del dlg "+carrera);
+                	
+                	listener.onBtnClick(id, nombre, apellido1, apellido2, fecha, carrera);
+                	
+                	AlumnoInsertDlg.this.reset();
+                	AlumnoInsertDlg.this.setVisible(false);
+            	}
             }
         });
         
@@ -200,6 +223,7 @@ public class AlumnoInsertDlg extends JDialog{
 		this.comboCarreras = comboCarreras;
 	}
     
+	
     /*public static void main(String[] args) {
         JFrame jframe = new JFrame();
         jframe.setLayout(new BorderLayout());

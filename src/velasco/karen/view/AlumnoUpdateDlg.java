@@ -24,7 +24,7 @@ public class AlumnoUpdateDlg extends JDialog{
 	private JButton btnId;
 	private AlumnoUpdateListener listener;
 	
-	public AlumnoUpdateDlg(JFrame parent){
+	public AlumnoUpdateDlg(JFrame parent, Integer id){
 		super(parent, "Actualizar datos de estudiante", true);
         super.setSize(350,150);
         super.setLocationRelativeTo(null);
